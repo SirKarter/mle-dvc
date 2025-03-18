@@ -8,3 +8,4 @@ metrics: ['f1', 'roc_auc']
 n_jobs: -1 
 C: 1
 penalty: 'l2'
+retrain: True
