@@ -30,11 +30,13 @@ stages:
     deps:
     - path: scripts/data.py
       hash: md5
+      md5: 6724540c91f389d6aa8f01913b928db1
+      size: 1494
+    params:
+      params.yaml:
+        index_col: customer_id
     outs:
     - path: data/initial_data.csv
       hash: md5
+      md5: 0b17870b33ee324a759a1a2596609b4a
       size: 822095
-      cloud:
-        my_storage:
-          etag: 0b17870b33ee324a759a1a2596609b4a
-          version_id: 0006307C3405D230
