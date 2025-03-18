@@ -25,6 +25,11 @@ stages:
     outs:
     - path: models/fitted_model.pkl
       hash: md5
+      size: 10558
+      cloud:
+        my_storage:
+          etag: 7f3a53e947547bfa9647c017ee38fffd
+          version_id: 00063099AD5F626E
   get_data:
     cmd: python scripts/data.py
     deps:
@@ -40,3 +45,7 @@ stages:
       hash: md5
       md5: 0b17870b33ee324a759a1a2596609b4a
       size: 822095
+      cloud:
+        my_storage:
+          etag: 0b17870b33ee324a759a1a2596609b4a
+          version_id: 0006309CFBDD1566
