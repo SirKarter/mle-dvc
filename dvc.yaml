@@ -9,7 +9,7 @@ stages:
       - retrain
     outs:
       - data/initial_data.csv
-      
+
   fit_model:
     cmd: python scripts/fit.py
     deps:
@@ -23,20 +23,6 @@ stages:
       - retrain
     outs:
       - models/fitted_model.pkl
-
-  retrain:
-    cmd: python scripts/fit.py
-    deps:
-      - data/initial_data.csv
-      - scripts/fit.py
-    params:
-      - index_col
-      - target_col
-      - one_hot_drop
-      - auto_class_weights
-      - retrain
-    outs:
-      - models/retrained_model.pkl
       
   evaluate_model:
     cmd: python scripts/evaluate.py

@@ -5,31 +5,50 @@ stages:
     deps:
     - path: models/fitted_model.pkl
       hash: md5
+      md5: b3170dfaf3dc925d2f4c6a30e326f315
+      size: 1097522
     - path: scripts/evaluate.py
       hash: md5
+      md5: 697982f80bffae5634acbae33b4b03cd
+      size: 1366
+    params:
+      params.yaml:
+        index_col: customer_id
+        metrics:
+        - f1
+        - roc_auc
+        n_jobs: -1
+        n_splits: 5
+        retrain: true
+        target_col: target
     outs:
     - path: cv_results/cv_res.json
       hash: md5
+      md5: 0dc8b8e99113878331ca3f7cea053560
       size: 95
-      cloud:
-        my_storage:
-          etag: f74bab9e4b0e107c0bcc102adba726b6
-          version_id: 0006308EB6DA17FD
   fit_model:
     cmd: python scripts/fit.py
     deps:
     - path: data/initial_data.csv
       hash: md5
+      md5: 0b17870b33ee324a759a1a2596609b4a
+      size: 822095
     - path: scripts/fit.py
       hash: md5
+      md5: 44cde83dc6e5c1a573d11cafb157a70f
+      size: 2109
+    params:
+      params.yaml:
+        auto_class_weights: Balanced
+        index_col: customer_id
+        one_hot_drop: if_binary
+        retrain: true
+        target_col: target
     outs:
     - path: models/fitted_model.pkl
       hash: md5
-      size: 10558
-      cloud:
-        my_storage:
-          etag: 7f3a53e947547bfa9647c017ee38fffd
-          version_id: 00063099AD5F626E
+      md5: b3170dfaf3dc925d2f4c6a30e326f315
+      size: 1097522
   get_data:
     cmd: python scripts/data.py
     deps:
@@ -40,6 +59,7 @@ stages:
     params:
       params.yaml:
         index_col: customer_id
+        retrain: true
     outs:
     - path: data/initial_data.csv
       hash: md5
@@ -49,3 +69,13 @@ stages:
         my_storage:
           etag: 0b17870b33ee324a759a1a2596609b4a
           version_id: 0006309CFBDD1566
+  retrain:
+    cmd: python scripts/fit.py
+    deps:
+    - path: data/initial_data.csv
+      hash: md5
+    - path: scripts/fit.py
+      hash: md5
+    outs:
+    - path: models/retrained_model.pkl
+      hash: md5
